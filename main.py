@@ -1,8 +1,16 @@
-def input_validation():
-    pass
+def input_validation(option_list, prompt):
+    while True:
+        option = input(prompt).capitalize()
+        if option in option_list:
+            return option
+        else:
+            print("That is not a valid option. Please re-input your choice.")
 
 def set_size():
-    pass
+    options = ["Small", "Medium", "Large"]
+    question = "Would like a small, medium or large pizza? (Type the size you want): "
+    choice = input_validation(options, question)
+    return choice
 
 def set_dough():
     pass
@@ -13,22 +21,29 @@ def set_crust():
 def add_topping():
     pass
 
-def add_pizza():
-    print("adding pizza")
+def add_pizza(order):
+    pizza = {
+        'size' : "",
+        'dough' : "",
+        'crust' : "",
+        'toppings' : []
+    }
+    pizza['size'] = set_size()
+    print(pizza)
+    set_dough()
+    set_crust()
 
-def add_drink():
+def add_drink(order):
     print("adding drink")
 
-def remove_item():
+def remove_item(order):
     print("removing item")
 
-def add_to_order():
-    pass
-
-def confirm_order():
+def confirm_order(order):
     print("confirming order")
 
 def main_menu():
+    order = []
     print("Hello! What would you like to add to your order?\nPlease type the letter corresponding to the action you would like to do.")
     option = input("""
 a) Add a pizza
@@ -37,13 +52,13 @@ c) Remove an item from your order
 d) Confirm order
 """).lower()
     if option == "a":
-        add_pizza()
+        add_pizza(order)
     elif option == "b":
-        add_drink()
+        add_drink(order)
     elif option == "c":
-        remove_item()
+        remove_item(order)
     elif option == "d":
-        confirm_order()
+        confirm_order(order)
     else:
         print("Not a valid option. Please re-input your choice.")
     
