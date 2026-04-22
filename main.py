@@ -8,18 +8,33 @@ def input_validation(option_list, prompt):
 
 def set_size():
     options = ["Small", "Medium", "Large"]
-    question = "Would like a small, medium or large pizza? (Type the size you want): "
+    question = "Would like a small, medium, or large pizza? (Type the size you want): "
     choice = input_validation(options, question)
     return choice
 
 def set_dough():
-    pass
+    options = ["Thin", "Thick", "Extra thick"]
+    question = "Would like the dough to be thin, thick, or extra thick? (Type the dough you want): "
+    choice = input_validation(options, question)
+    return choice
 
 def set_crust():
-    pass
+    options = ["Normal", "Crispy thin", "Cheesy"]
+    question = "Would like the crust to be normal, crispy thin, or cheesy? (Type the crust you want): "
+    choice = input_validation(options, question)
+    return choice
 
-def add_topping():
-    pass
+def add_topping(current_pizza):
+    topping_options = ["Cheese", "Tomato sauce", "Pepperoni", "Sausage", "Cream cheese", "Chicken", "Olives", "Pineapple", "Onion", "Apricot sauce", "Barbecue sauce", "Aioli", "Finish"]
+    print("Add some toppings by inputting their name, or type 'Finish' to complete your pizza. (We reccomend atleast cheese and tomato sauce!)")
+    for topping in topping_options:
+        print(topping)
+    print("\n")
+    while True:
+        choice = input_validation(topping_options, "")
+        if choice == "Finish":
+            break
+        current_pizza['toppings'].append(choice)
 
 def add_pizza(order):
     pizza = {
@@ -29,9 +44,10 @@ def add_pizza(order):
         'toppings' : []
     }
     pizza['size'] = set_size()
+    pizza['dough'] = set_dough()
+    pizza['crust'] = set_crust()
+    add_topping(pizza)
     print(pizza)
-    set_dough()
-    set_crust()
 
 def add_drink(order):
     print("adding drink")
