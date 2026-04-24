@@ -38,6 +38,7 @@ def add_topping(current_pizza):
 
 def add_pizza(order):
     pizza = {
+        'type' : "pizza",
         'size' : "",
         'dough' : "",
         'crust' : "",
@@ -47,7 +48,7 @@ def add_pizza(order):
     pizza['dough'] = set_dough()
     pizza['crust'] = set_crust()
     add_topping(pizza)
-    print(pizza)
+    order.append(pizza)
 
 def add_drink(order):
     print("adding drink")
@@ -57,6 +58,16 @@ def remove_item(order):
 
 def confirm_order(order):
     print("confirming order")
+
+def print_item(item):
+    if item['type'] == "pizza":
+        print(f"Pizza:")
+        print(f" Size: {item['size']}")
+        print(f" Dough: {item['dough']}")
+        print(f" Crust: {item['crust']}")
+        print(f" Toppings: ")
+        for topping in item['toppings']:
+            print(f"     {topping}")
 
 def main_menu():
     order = []
@@ -69,6 +80,9 @@ d) Confirm order
 """).lower()
     if option == "a":
         add_pizza(order)
+        print("CURRENT ORDER:\n")
+        for item in order:
+            print_item(item)
     elif option == "b":
         add_drink(order)
     elif option == "c":
