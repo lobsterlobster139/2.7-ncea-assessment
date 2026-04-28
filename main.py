@@ -6,6 +6,15 @@ def input_validation(option_list, prompt):
         else:
             print("That is not a valid option. Please re-input your choice.")
 
+def int_validation(question):
+    while True:
+        try:
+            option = int(input(question))
+            print(option)
+            return option
+        except ValueError:
+            print("Please enter only integers.")
+
 def set_size():
     options = ["Small", "Medium", "Large"]
     question = "Would like a small, medium, or large pizza? (Type the size you want): "
@@ -72,10 +81,27 @@ def add_drink(order):
     order.append({'type': "drink", 'name': choice, 'price' : 4.0})
 
 def remove_item(order):
-    print("removing item")
+    number = 0
+    for item in order:
+        number += 1
+        print(f"{number}. ")
+        print_item(item)
+    choice = int_validation("Which item in the order would you like to remove? Please enter the corresponding number: ")
+    removing_item = order[choice-1]
+    order.remove(removing_item)
+    print("Item removed!")
+    
 
-def confirm_order(order):
-    print("confirming order")
+        
+
+def confirm_order():
+    options = ["Y", "N"]
+    choice = input_validation(options, "Are you sure you want to confirm your order? Y/N: ")
+    if choice == "Y":
+        print("Thank you for ordering with us! Your order will be ready shortly. Please leave a good review to support our business!")
+        exit()
+    elif choice == "N":
+        print("Returning to main menu...")
 
 def print_item(item):
     if item['type'] == "pizza":
@@ -96,6 +122,12 @@ def print_total_price(order):
     for item in order:
         total_price += item['price']
     print(f"Total Price: ${total_price:.2f}")
+
+def print_current_order(order):
+    print("\nCURRENT ORDER:")
+    for item in order:
+        print_item(item)
+    print_total_price(order)
         
 
 def main_menu():
@@ -110,20 +142,19 @@ d) Confirm order
 """).lower()
         if option == "a":
             add_pizza(order)
-            print("\nCURRENT ORDER:")
-            for item in order:
-                print_item(item)
-            print_total_price(order)
+            print_current_order(order)
         elif option == "b":
             add_drink(order)
-            print("\nCURRENT ORDER:")
-            for item in order:
-                print_item(item)
-            print_total_price(order)
+            print_current_order(order)
         elif option == "c":
-            remove_item(order)
+            if len(order) == 0:
+                print("No items in your order.")
+            else:
+                remove_item(order)
+                print_current_order(order)
         elif option == "d":
-            confirm_order(order)
+            print_current_order(order)
+            confirm_order()
         else:
             print("Not a valid option. Please re-input your choice.")
     
