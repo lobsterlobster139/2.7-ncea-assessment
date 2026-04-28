@@ -6,6 +6,7 @@ def input_validation(option_list, prompt):
         else:
             print("That is not a valid option. Please re-input your choice.")
 
+
 def int_validation(question):
     while True:
         try:
@@ -15,11 +16,13 @@ def int_validation(question):
         except ValueError:
             print("Please enter only integers.")
 
+
 def set_size():
     options = ["Small", "Medium", "Large"]
     question = "Would like a small, medium, or large pizza? (Type the size you want): "
     choice = input_validation(options, question)
     return choice
+
 
 def set_dough():
     options = ["Thin", "Thick", "Extra thick"]
@@ -27,11 +30,13 @@ def set_dough():
     choice = input_validation(options, question)
     return choice
 
+
 def set_crust():
     options = ["Normal", "Crispy thin", "Cheesy"]
     question = "Would like the crust to be normal, crispy thin, or cheesy? (Type the crust you want): "
     choice = input_validation(options, question)
     return choice
+
 
 def add_topping(current_pizza):
     topping_options = ["Cheese", "Tomato sauce", "Pepperoni", "Sausage", "Cream cheese", "Chicken", "Olives", "Pineapple", "Onion", "Apricot sauce", "Barbecue sauce", "Aioli", "Finish"]
@@ -45,6 +50,7 @@ def add_topping(current_pizza):
             break
         current_pizza['toppings'].append(choice)
 
+
 def calc_price(pizza):
     small_price = 9.0
     medium_price = 10.0
@@ -55,7 +61,6 @@ def calc_price(pizza):
         pizza['price'] = medium_price
     elif pizza['size'] == "Large":
         pizza['price'] = large_price
-
 
 
 def add_pizza(order):
@@ -74,11 +79,13 @@ def add_pizza(order):
     add_topping(pizza)
     order.append(pizza)
 
+
 def add_drink(order):
     options = ["Ginger beer", "Fanta", "Pepsi", "Sprite"]
     question = "What drink would you like? Ginger beer, Fanta, Pepsi or Sprite? (Type the drink you want): "
     choice = input_validation(options, question)
     order.append({'type': "drink", 'name': choice, 'price' : 4.0})
+
 
 def remove_item(order):
     number = 0
@@ -90,9 +97,7 @@ def remove_item(order):
     removing_item = order[choice-1]
     order.remove(removing_item)
     print("Item removed!")
-    
-
-        
+ 
 
 def confirm_order():
     options = ["Y", "N"]
@@ -103,13 +108,14 @@ def confirm_order():
     elif choice == "N":
         print("Returning to main menu...")
 
+
 def print_item(item):
     if item['type'] == "pizza":
-        print(f"Pizza:")
+        print("Pizza:")
         print(f" Size: {item['size']}")
         print(f" Dough: {item['dough']}")
         print(f" Crust: {item['crust']}")
-        print(f" Toppings: ")
+        print(" Toppings: ")
         for topping in item['toppings']:
             print(f"     {topping}")
         print(f" Price: ${item['price']:.2f}\n")
@@ -117,11 +123,13 @@ def print_item(item):
         print(f"Can of {item['name']}")
         print(f" Price: ${item['price']:.2f}\n")
 
+
 def print_total_price(order):
     total_price = 0.0
     for item in order:
         total_price += item['price']
     print(f"Total Price: ${total_price:.2f}")
+
 
 def print_current_order(order):
     print("\nCURRENT ORDER:")
@@ -158,8 +166,4 @@ d) Confirm order
         else:
             print("Not a valid option. Please re-input your choice.")
     
-
 main_menu()
-    
-
-
