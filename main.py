@@ -16,7 +16,6 @@ def int_validation(question):
     while True:
         try:
             option = int(input(question))
-            print(option)
             return option
         except ValueError:
             print("Please enter only integers.")
@@ -76,12 +75,12 @@ def calc_price(pizza):
 def add_pizza(order):
     """Add a customised pizza to the order in the form of a dictionary using other smaller functions."""
     pizza = {
-        'type' : "pizza",
-        'size' : "",
-        'dough' : "",
-        'crust' : "",
-        'toppings' : [],
-        'price' : 0.0,
+        'type': "pizza",
+        'size': "",
+        'dough': "",
+        'crust': "",
+        'toppings': [],
+        'price': 0.0,
     }
     pizza['size'] = set_size()
     pizza['dough'] = set_dough()
@@ -96,7 +95,7 @@ def add_drink(order):
     options = ["Ginger beer", "Fanta", "Pepsi", "Sprite"]
     question = "What drink would you like? Ginger beer, Fanta, Pepsi or Sprite? (Type the drink you want): "
     choice = input_validation(options, question)
-    order.append({'type': "drink", 'name': choice, 'price' : 4.0})
+    order.append({'type': "drink", 'name': choice, 'price': 4.0})
 
 
 def remove_item(order):
@@ -106,10 +105,15 @@ def remove_item(order):
         number += 1
         print(f"{number}. ")
         print_item(item)
-    choice = int_validation("Which item in the order would you like to remove? Please enter the corresponding number: ")
-    removing_item = order[choice-1]
-    order.remove(removing_item)
-    print("Item removed!")
+    while True:
+        choice = int_validation("Which item in the order would you like to remove? Please enter the corresponding number: ")
+        try:
+            removing_item = order[choice-1]
+            order.remove(removing_item)
+            print("Item removed!")
+            break
+        except IndexError:
+            print("There is no menu item with that number. Please re-input your choice.")
 
 
 def confirm_order():
